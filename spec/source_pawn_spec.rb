@@ -21,4 +21,12 @@ describe SourcePawn do
     specify{expect(to_camel_case "single").to eql "Single"}
     specify{expect(to_camel_case "single", :lower).to eql "single"}
   end
+
+  describe "#declare_cvar_handle" do
+    specify{expect(declare_cvar_handle "someVariable-name").to eql "new Handle:g_Cvar_SomeVariableName = INVALID_HANDLE;"}
+  end
+  describe "#create_cvar" do
+    specify{expect(create_cvar "someVariable-name").to eql 'g_Cvar_SomeVariableName = CreateConVar("sm_some_variable_name", "1", "TODO - Add a description for this cvar");'}
+  end
+
 end

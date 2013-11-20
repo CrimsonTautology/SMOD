@@ -21,5 +21,12 @@ module Smod
         end
       end.join
     end
+
+    def declare_cvar_handle str
+      %Q{new Handle:g_Cvar_#{to_camel_case str} = INVALID_HANDLE;}
+    end
+    def create_cvar str
+      %Q{g_Cvar_#{to_camel_case str} = CreateConVar("sm_#{to_snake_case str}", "1", "TODO - Add a description for this cvar");}
+    end
   end
 end
