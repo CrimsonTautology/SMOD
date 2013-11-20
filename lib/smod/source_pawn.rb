@@ -28,5 +28,37 @@ module Smod
     def create_cvar str
       %Q{g_Cvar_#{to_camel_case str} = CreateConVar("sm_#{to_snake_case str}", "1", "TODO - Add a description for this cvar");}
     end
+
+    def declare_global_variable str
+      %Q{new g_#{to_camel_case str};}
+    end
+
+    def register_console_command str
+      %Q{RegConsoleCmd("sm_#{to_snake_case str}", Command_#{to_camel_case str}, "TODO - Add a description for this cmd");}
+    end
+    def hook_event str
+      %Q{HookEvent("#{to_snake_case str}", Event_#{to_camel_case str});}
+    end
+
+    def command_callback str
+      <<-EOF
+public Action:Command_#{to_camel_case str}(client, args)
+{
+    //TODO
+    return Plugin_Handled;
+}
+EOF
+    end
+
+    def event_callback str
+      <<-EOF
+public Event_#{to_camel_case str}(Handle:event, const String:name[], bool:dontBroadcast)
+{
+    //TODO
+    return Plugin_Continue;
+}
+EOF
+
+    end
   end
 end

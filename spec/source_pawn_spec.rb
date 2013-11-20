@@ -29,4 +29,36 @@ describe SourcePawn do
     specify{expect(create_cvar "someVariable-name").to eql 'g_Cvar_SomeVariableName = CreateConVar("sm_some_variable_name", "1", "TODO - Add a description for this cvar");'}
   end
 
+  describe "#declare_global_variable" do
+    specify{expect(declare_global_variable "someVariable-name").to eql 'new g_SomeVariableName;'}
+  end
+
+  describe "#register_console_command" do
+    specify{expect(register_console_command "someVariable-name").to eql 'RegConsoleCmd("sm_some_variable_name", Command_SomeVariableName, "TODO - Add a description for this cmd");'}
+  end
+  describe "#hook_event" do
+    specify{expect(hook_event "someVariable-name").to eql 'HookEvent("some_variable_name", Event_SomeVariableName);'}
+  end
+
+  describe "#command_callback" do
+    specify{expect(command_callback "someVariable-name").to eql <<-EOF
+public Action:Command_SomeVariableName(client, args)
+{
+    //TODO
+    return Plugin_Handled;
+}
+EOF
+    }
+  end
+  describe "#event_callback" do
+    specify{expect(event_callback "someVariable-name").to eql <<-EOF
+public Event_SomeVariableName(Handle:event, const String:name[], bool:dontBroadcast)
+{
+    //TODO
+    return Plugin_Continue;
+}
+EOF
+    }
+  end
+
 end
