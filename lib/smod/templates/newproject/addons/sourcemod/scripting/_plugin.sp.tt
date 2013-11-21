@@ -1,0 +1,51 @@
+/**
+ * vim: set ts=4 :
+ * =============================================================================
+ * <%= @project.name %>
+ * <%= @project.description %>
+ *
+ * Copyright <%=Time.now.year%> <%=  @project.author %>
+ * =============================================================================
+ *
+ */
+
+<% if @project.pragma_flag %>
+#pragma semicolon 1
+<% end %>
+#include <sourcemod>
+
+#define PLUGIN_VERSION "<%= @project.version %>"
+
+public Plugin:myinfo =
+{
+    name = "<% @project.name %>",
+    author = "<% @project.author %>",
+    description = "<% @project.description %>",
+    version = PLUGIN_VERSION,
+    url = "<% @project.url %>"
+};
+<% @project.cvar_list.each do |cvar| %>
+new Handle:<%= cvar.to_global_cvar%> = INVALID_HANDLE;<% end %>
+<% @project.global_list.each do |global| %>
+new <%= global[0].to_global_variable %>;<% end %>
+public OnPluginStart()
+{
+    <% @project.cvar_list.each do |cvar| %>
+    <%=cvar.to_global_cvar%> = CreateConVar(<%= cvar.to_console_cvar%>, "1", "TODO - Add a description for this cvar");<% end %>
+    <% @project.action_list.each do |action| %>
+    RegConsoleCmd("<%= action.to_console_cvar%>", Command_<%= action.toCamelCase%>, "TODO - Add a description for this cmd");<% end %>
+    <% @project.event_list.each do |event| %>
+    HookEvent("<%= event.to_snake_case%>", Event_<%= event.toCamelCase%>);<% end %>
+}
+<% @project.action_list.each do |action| %>
+
+public Action:Command_<%= action.toCamelCase%>(client, args)
+{
+    //TODO
+}<% end %>
+<% @project.event_list.each do |event| %>
+
+public Event_<%= event.toCamelCase%>(Handle:event, const String:name[], bool:dontBroadcast)
+{
+    //TODO
+}<% end %>
