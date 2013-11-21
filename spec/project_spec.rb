@@ -42,7 +42,7 @@ describe Project do
 
     context "with args" do
       before do
-        @project = Project.new "Example Project", {}, "variableName:cvar", "global-var:global", "round_start:event", "sm_stop:command", "sm_trigger:command", "variableName2:cvar", "stuff:fake"
+        @project = Project.new "Example Project", {}, "variableName:cvar", "global-var:global", "round_start:event", "sm_stop:command", "sm_trigger:command", "variableName2:cvar", "stuff:fake", "crap", "cvar"
       end
 
       its(:cvar_list){should match_array(["variableName", "variableName2"])}

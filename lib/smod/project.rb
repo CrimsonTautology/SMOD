@@ -40,6 +40,7 @@ module Smod
       @command_list = []
 
       args.map{|a| a.split(":")}.each do |arg|
+        next if arg[1].nil?
         case arg[1].downcase
         when CVAR
           add_cvar arg[0]
