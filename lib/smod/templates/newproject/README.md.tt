@@ -1,4 +1,4 @@
-# <%= @project.name %>
+#<%= @project.name %>
 
 <%= @project.description %>
 
@@ -11,19 +11,11 @@ Simply compile with the command:
 and put the compiled .smx file in your `"<modname>/addons/sourcemod/plugins"`
 directory.
 
+## Cvars
+<% @project.cvar_list.each do |cvar| -%>
+<%= readme_cvar cvar %><% end %>
+
 ## Usage
-
 TODO: Write instructions here
-
-<% if @project.cvar_list.count > 0 %>
-CVARs:
-<% @project.cvar_list.each do |cvar| %>
-> <%= cvar.to_console_cvar%><% end %>
-<% end %>
-<% if @project.action_list.count > 0 %>
-
-Commands:
-<% @project.action_list.each do |action| %>
-> <%= action.to_console_cvar %><% end %>
-<% end %>
-
+<% @project.command_list.each do |command| -%>
+<%= readme_command command %><% end %>

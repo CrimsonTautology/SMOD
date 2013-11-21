@@ -22,6 +22,12 @@ module Smod
       end.join
     end
 
+    def readme_cvar str
+      %Q{- `sm_#{to_snake_case str}` TODO - Add description}
+    end
+    def readme_command str
+      %Q{- `!#{to_snake_case str}` TODO - Add description}
+    end
     def declare_cvar_handle str
       %Q{new Handle:g_Cvar_#{to_camel_case str} = INVALID_HANDLE;}
     end

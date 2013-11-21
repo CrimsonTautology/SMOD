@@ -3,15 +3,15 @@
  * =============================================================================
  * <%= @project.name %>
  * <%= @project.description %>
+ * <%= @project.url %>
  *
  * Copyright <%=Time.now.year%> <%=  @project.author %>
  * =============================================================================
  *
  */
 
-<% if @project.pragma_flag %>
 #pragma semicolon 1
-<% end %>
+
 #include <sourcemod>
 
 #define PLUGIN_VERSION "<%= @project.version %>"
@@ -25,27 +25,19 @@ public Plugin:myinfo =
     url = "<% @project.url %>"
 };
 <% @project.cvar_list.each do |cvar| %>
-new Handle:<%= cvar.to_global_cvar%> = INVALID_HANDLE;<% end %>
+<%= declare_cvar_handle cvar %><% end %>
 <% @project.global_list.each do |global| %>
-new <%= global[0].to_global_variable %>;<% end %>
+<%= declare_global_variable global %><% end %>
 public OnPluginStart()
 {
     <% @project.cvar_list.each do |cvar| %>
-    <%=cvar.to_global_cvar%> = CreateConVar(<%= cvar.to_console_cvar%>, "1", "TODO - Add a description for this cvar");<% end %>
-    <% @project.action_list.each do |action| %>
-    RegConsoleCmd("<%= action.to_console_cvar%>", Command_<%= action.toCamelCase%>, "TODO - Add a description for this cmd");<% end %>
+    <%= create_cvar cvar %><% end %>
+    <% @project.command_list.each do |command| %>
+    <%= register_console_command command %><% end %>
     <% @project.event_list.each do |event| %>
-    HookEvent("<%= event.to_snake_case%>", Event_<%= event.toCamelCase%>);<% end %>
+    <%= hook_event event %><% end %>
 }
-<% @project.action_list.each do |action| %>
-
-public Action:Command_<%= action.toCamelCase%>(client, args)
-{
-    //TODO
-}<% end %>
+<% @project.command_list.each do |command| %>
+<%= command_callback command %><% end %>
 <% @project.event_list.each do |event| %>
-
-public Event_<%= event.toCamelCase%>(Handle:event, const String:name[], bool:dontBroadcast)
-{
-    //TODO
-}<% end %>
+<%= event_callback event %><% end %>

@@ -3,6 +3,7 @@ module Smod
   require 'thor'
   class CLI < Thor
     include Thor::Actions
+    include SourcePawn
 
     desc "init PROJECT-NAME", "Generate a skeleton Sourcemod project"
     option :file_name, desc: "File name of the script"
@@ -42,6 +43,12 @@ module Smod
       end
 
       Dir.chdir(target) { `git init`; `git add .`; `git commit -m 'First'` }
+    end
+
+
+
+    def self.source_root
+      File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
     end
 
   end
