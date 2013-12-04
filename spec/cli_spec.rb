@@ -12,7 +12,7 @@ describe CLI do
   end
 
   describe ".init" do
-    specify{expect(@cli.init("File name", "enabled:cvar", "value:global", "game_end:event", "game_start:event", "crap", "crap:2", "startup:command", "stopdown:command", "turnoff:command", "round_start:event")).to_not raise_error(Error)}
+    specify{expect(@cli.init("File name", "enabled:cvar", "value:global", "game_end:event", "game_start:event", "crap", "crap:2", "startup:command", "stopdown:command", "turnoff:command", "round_start:event")).to_not raise_error(NameError)}
   end
 
   after :all do
