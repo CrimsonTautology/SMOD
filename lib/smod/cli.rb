@@ -5,8 +5,32 @@ module Smod
     include Thor::Actions
     include SourcePawn
 
-    desc "init PROJECT-NAME", "Generate a skeleton Sourcemod project"
+    desc "init PROJECT-NAME options args", "Generate a skeleton Sourcemod project"
     option :file_name, desc: "File name of the script"
+    option :author, desc: "Your name", default: "Your git name"
+    option :email, desc: "Your email", default: "Your git email"
+    option :description, desc: "Short description for your project"
+    option :version, desc: "Version to start your project at"
+    option :url, desc: "Your project homepage"
+    long_desc <<-LONGDESC
+    `smod init` will stub out a sourcemod project for you
+ 
+    It can optionally take a list of cvars, global variables,
+    game events and console commands that will stubout for you.
+
+    cvar:<CVAR NAME>
+
+    global:<GLOBAL NAME>
+
+    event:<EVENT NAME>
+
+    command:<COMMAND NAME>
+ 
+
+    > $ smod init "newPlugin" --author="John Smith" --url="johnsmith.example.com" cvar:enabled cvar:adminsonly global:playerenabled event:player_death command:sm_trigger
+ 
+    LONGDESC
+
     def init(name_arg, *args)
       name = name_arg.chomp("/")
 
@@ -26,7 +50,7 @@ module Smod
       target = File.join(Dir.pwd, name)
       template(File.join("newproject/LICENSE.txt.tt"), File.join(target, "LICENSE.txt"), @project)
       template(File.join("newproject/README.md.tt"), File.join(target, "README.md"), @project)
-      template(File.join("newproject/Rakefile.md.tt"), File.join(target, "Rakefile.md"), @project)
+      template(File.join("newproject/Rakefile.tt"), File.join(target, "Rakefile"), @project)
       template(File.join("newproject/gitignore.tt"), File.join(target, ".gitignore"), @project)
 
       template(File.join("newproject/addons/sourcemod/scripting/_plugin.sp.tt"), File.join(target, @project.script_path), @project)
