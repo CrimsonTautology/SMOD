@@ -18,16 +18,16 @@ module Smod
     It can optionally take a list of cvars, global variables,
     game events and console commands that will stubout for you.
 
-    cvar:<CVAR NAME>
+    <CVAR NAME>:cvar
 
-    global:<GLOBAL NAME>
+    <GLOBAL NAME>:global
 
-    event:<EVENT NAME>
+    <EVENT NAME>:event
 
-    command:<COMMAND NAME>
+    <COMMAND NAME>:command
  
 
-    > $ smod init "newPlugin" --author="John Smith" --url="johnsmith.example.com" cvar:enabled cvar:adminsonly global:playerenabled event:player_death command:sm_trigger
+    > $ smod init "newPlugin" --author="John Smith" --url="johnsmith.example.com" enabled:cvar adminsonly:cvar playerenabled:global player_death:event round_end:event sm_trigger:command
  
     LONGDESC
 
