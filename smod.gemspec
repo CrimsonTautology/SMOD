@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["CrimsonTautology"]
   spec.email         = ["billehs+github@gmail.com"]
   spec.description   = %q{SouceMod code generator}
-  spec.summary       = %q{Build new plugins with ease}
-  spec.homepage      = ""
+  spec.summary       = %q{Start new plugins with ease}
+  spec.homepage      = "https://github.com/CrimsonTautology/SMOD"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "factory_girl"
   spec.add_development_dependency "pry"
+  spec.add_development_dependency "guard"
 end
