@@ -1,5 +1,4 @@
 module Smod
-  include SourcePawn
 
   DEFAULT_VERSION = 0.1
   DEFAULT_AUTHOR = "TODO - Add your name/handle"
@@ -13,6 +12,7 @@ module Smod
 
   #Logic for holding data pertaining to the project and it's members
   class Project
+    include SourcePawn
     attr_accessor :name,
       :file_name,
       :author,
