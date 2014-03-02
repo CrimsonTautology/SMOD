@@ -26,6 +26,7 @@ module Smod
       target = File.join(Dir.pwd, name)
       template(File.join("newproject/LICENSE.txt.tt"), File.join(target, "LICENSE.txt"), @project)
       template(File.join("newproject/README.md.tt"), File.join(target, "README.md"), @project)
+      template(File.join("newproject/Rakefile.md.tt"), File.join(target, "Rakefile.md"), @project)
       template(File.join("newproject/gitignore.tt"), File.join(target, ".gitignore"), @project)
 
       template(File.join("newproject/addons/sourcemod/scripting/_plugin.sp.tt"), File.join(target, @project.script_path), @project)
